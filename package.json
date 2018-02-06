@@ -1,0 +1,22 @@
+{
+	"name": "climOnOff",
+	"version": "0.1.0",
+	"description": "Airton air cooler command",
+	"main": "index.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+
+	},
+	"keywords": [
+		"gladys",
+		"airton"
+
+	],
+	"author": "sylvain121",
+	"license": "CC-BY-NC-SA-3.0",
+	"dependencies": {
+
+	}
+
+}
+
