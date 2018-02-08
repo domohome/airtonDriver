@@ -3,7 +3,7 @@ const clim = require("./lib/tcpServer.js");
 module.exports = function(sails) {
 
 	gladys.on("ready", function(){
-		clim.init();
+		clim.init(gladys.device.create);
 	});
 
 	return {
