@@ -1,5 +1,5 @@
 #include <IRremoteESP8266.h>
-#include <IRremoteInt.h>
+#include <IRsend.h>
 
 #define DEBUG = 1
 
@@ -41,11 +41,11 @@ void setup() {
 
 }
 
-int get_freq() {
+uint16_t get_freq() {
   return net_readInt();
 }
 
-int get_message_length() {
+uint16_t get_message_length() {
   return net_readInt();
 }
 
@@ -55,21 +55,21 @@ void decode_incoming_data() {
         char packet_type = client.read();
         Serial.print(packet_type, HEX);
         if(packet_type == MESSAGE_EMIT) {
-          int freq = get_freq();
-          int length = get_message_length();
+          uint16_t freq = get_freq();
+          uint16_t length = get_message_length();
           #ifdef DEBUG
             Serial.println("receiving command");
             Serial.println(freq);
             Serial.println(length);
           #endif
-          unsigned int rawData[length];
+          uint16_t rawData[length];
           for( int i = 0; i < length; i++) {
-            int c = net_readInt();
+            uint16_t c = net_readInt();
             #ifdef DEBUG
               Serial.print(c, DEC);
               Serial.print(", ");
             #endif
-            rawData[i] = (unsigned int) c;
+            rawData[i] = c;
           }
           irsend.sendRaw(rawData, length, freq); 
       }
@@ -135,15 +135,14 @@ void send_idetification_frame() {
 }
 
 
-int net_readInt()
+uint16_t net_readInt()
 {
  
-  int num = 
-    (int) client.read() << 24 |
-    (int) client.read() << 16 |
-    (int) client.read() << 8  |
-    (int) client.read();
+  uint16_t num = 
+    (uint16_t) client.read() << 24 |
+    (uint16_t) client.read() << 16 |
+    (uint16_t) client.read() << 8  |
+    (uint16_t) client.read();
 
   return num;
 }
-
